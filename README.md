@@ -3,7 +3,7 @@
 1. `docker-compose build`
 2. `docker-compose up`
 
-### environment variables
+### Environment variables
 
 In order to run services you have to provide following environment varibales:
 ```
@@ -16,10 +16,10 @@ CLIENT_PASSWORD=<your password>
 
 Application for a single user, no db. Data is "stored" in api server runtime.
 
-### client
+### Client
 
 Web based client made with create-react-app
 
-### api
+### API
 
 REST API backend with limited actions: only READ and UPDATE from CRUD actions are availiable on a single subscription resource. Made with Express.js framework for Node.js platform
