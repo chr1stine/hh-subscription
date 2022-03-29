@@ -1,0 +1,15 @@
+@import 'normalize.css';
+
+* {
+  font-size: 1.1rem;
+}
+
+.container {
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 150px;
+  display: table;
+}
+.container > * {
+  display: block;
+}

@@ -1,0 +1,30 @@
+version: '2'
+services:
+  api:
+    image: 'node'
+    volumes:
+      - ./api:/app
+    ports:
+      - 5000:5000
+    working_dir: /app
+    environment:
+      - API_KEY=${API_KEY}
+    stdin_open: true
+    tty: true
+    entrypoint: npm start
+  client:
+    image: 'node:14'
+    volumes:
+      - ./client:/app
+    ports:
+      - 3000:3000
+    working_dir: /app
+    entrypoint: npm start
+    stdin_open: true
+    tty: true
+    environment:
+      - REACT_APP_API_KEY=${API_KEY}
+      - REACT_APP_LOGIN=${CLIENT_LOGIN}
+      - REACT_APP_PASSWORD=${CLIENT_PASSWORD}
+      - REACT_APP_API_DOMAIN=localhost
+      - REACT_APP_API_PORT=5000
