@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 // import './_mock_/subscription';
 
-const baseURL = `http://${process.env.REACT_APP_API_DOMAIN}:${process.env.REACT_APP_API_PORT}`
+const baseURL = `http://${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}`
 
 function DashboardPage() {
   const [config, setConfig] = useState(null);

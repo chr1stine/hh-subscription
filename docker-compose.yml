@@ -16,18 +16,17 @@ services:
       - full
 
   client:
-    image: 'node:14'
+    build:
+      context: ./client
+      target: development
     volumes:
       - ./client:/app
+      - /app/node_modules
+      - /app/build
     ports:
       - 3000:3000
     working_dir: /app
-    entrypoint: npm start
     stdin_open: true
     tty: true
-    environment:
-      - REACT_APP_API_KEY=${API_KEY}
-      - REACT_APP_LOGIN=${CLIENT_LOGIN}
-      - REACT_APP_PASSWORD=${CLIENT_PASSWORD}
-      - REACT_APP_API_DOMAIN=localhost
-      - REACT_APP_API_PORT=5000
+    profiles:
+      - full

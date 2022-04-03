@@ -9,7 +9,8 @@ function LoginPage() {
   async function validateCredentials() {
     const loginValue = loginRef.current.value;
     const passwordValue = passwordRef.current.value;
-    if (loginValue === process.env.REACT_APP_LOGIN && passwordValue === process.env.REACT_APP_PASSWORD) {
+    
+    if (loginValue === process.env.REACT_APP_CLIENT_LOGIN && passwordValue === process.env.REACT_APP_CLIENT_PASSWORD) {
       navigate('/dashboard');
     } else {
       console.log('error: incorrect credentials');
