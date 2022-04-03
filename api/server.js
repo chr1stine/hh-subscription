@@ -10,4 +10,4 @@ app.use(cors({origin: '*'}));
 const subscriptionRouter = require('./routes/subscription');
 app.use('/subscription', subscriptionRouter);
 
-app.listen(5000, () => console.log('server started'));
+app.listen(`${process.env.API_PORT}`, () => console.log(`server started on port ${process.env.API_PORT}`));

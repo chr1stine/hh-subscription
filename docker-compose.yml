@@ -1,17 +1,20 @@
 version: '2'
 services:
   api:
-    image: 'node'
+    build:
+      context: ./api
+      target: development
     volumes:
       - ./api:/app
+      - /app/node_modules
     ports:
       - 5000:5000
     working_dir: /app
-    environment:
-      - API_KEY=${API_KEY}
     stdin_open: true
     tty: true
-    entrypoint: npm start
+    profiles:
+      - full
+
   client:
     image: 'node:14'
     volumes:
