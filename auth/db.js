@@ -23,6 +23,7 @@ async function test(){
 
 // test();
 
+sequelize.sync();
 
 module.exports = sequelize;
   
