@@ -1,30 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import LoginPage from './LoginPage';
-import DashboardPage from './DashboardPage';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-const config = {
-  subscriptionOn: true,
-  email: 'sdf',
-  searchingPhrase: 'react',
-  filterString: 'asdasd',
-  period: 'once a week'
-};
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import LoginPage from "./LoginPage";
+import DashboardPage from "./DashboardPage";
+import SignupPage from "./SignupPage";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <LoginPage /> */}
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/dashboard" element={<DashboardPage config={config} />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </Router>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

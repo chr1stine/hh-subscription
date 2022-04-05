@@ -2,45 +2,42 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function LoginPage() {
+function SignupPage() {
   const navigate = useNavigate();
   const loginRef = useRef(null);
   const passwordRef = useRef(null);
 
   const baseAuthUrl = `http://${process.env.REACT_APP_AUTH_URL}`;
 
-  async function validateCredentials() {
+  async function register() {
     const login = loginRef.current.value;
     const password = passwordRef.current.value;
+
     try {
-      const response = await axios.post(`${baseAuthUrl}/session`, {
+      const response = await axios.post(`${baseAuthUrl}/user`, {
         login,
         password,
       });
-      navigate("/dashboard", {
-        state: { access_token: response.data.access_token },
-      });
+      if (response.status === 201) {
+        alert("registered successfully!");
+        navigate("/");
+      }
     } catch (e) {
-      alert("incorrect credentials");
-      console.log("error: incorrect credentials");
+      console.log("could not register because of error: ", e);
+      alert("error: name is already occupied, choose another");
     }
-  }
-
-  async function signup() {
-    navigate("/signup");
   }
 
   return (
     <div className="container">
-      <h2>Вход</h2>
+      <h3>Придумайте логин и пароль:</h3>
       <label>Логин:</label>
       <input ref={loginRef}></input>
       <label>Пароль:</label>
       <input type="password" ref={passwordRef}></input>
-      <button onClick={validateCredentials}>Войти</button>
-      <button onClick={signup}>Регистрация</button>
+      <button onClick={register}>Зарегистрироваться</button>
     </div>
   );
 }
 
-export default LoginPage;
+export default SignupPage;
