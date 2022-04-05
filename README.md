@@ -2,24 +2,52 @@
 
 1. `docker-compose build`
 2. `docker-compose up`
-
-### Environment variables
-
-In order to run services you have to provide following environment varibales:
-```
-API_KEY=<yout api key>
-CLIENT_LOGIN=<your name>
-CLIENT_PASSWORD=<your password>
-```
+3. Открыть `localhost:3000` в браузере
 
 ## About
 
-Application for a single user, no db. Data is "stored" in api server runtime.
+Приложение для создания email-подписок на вакансии с площадки headhunter.
 
 ### Client
 
-Web based client made with create-react-app
+Веб-клиент для сервисов Subscription API и Auth API.
 
-### API
+### Subscription API
 
-REST API backend with limited actions: only READ and UPDATE from CRUD actions are availiable on a single subscription resource. Made with Express.js framework for Node.js platform
+Все запросы к subscription требуют заголовок `Authorization` вида `Bearer {access_token}`. В случае неуспешной проверки токена доступа возвращается код ошибки `401`.
+
+##### GET /subscription
+
+Возвращает объект подписки пользователя с `user_id` из тела токена доступа.
+
+##### PUT /subscription
+
+Изменяет условия подписки пользователя с `user_id` из тела токена доступа на переданные в теле запроса. В теле запроса ожидается объект со следующими возможными полями (опционально):
+
+- `subscriptionOn`: вкл / выкл подписку
+- `email`: почтовый адрес получателя подписки
+- `searchingPhrase`: поисковая фраза
+- `filterString`: строка фильтров
+- `period`: регулярность рассылки
+
+### Auth API
+
+Сервис аутентификации пользователей.
+
+##### POST /user
+
+Создает пользователя в БД. Принимает в теле запроса объект с полями `login` и `password`. Если `login` не уникален, возвращается код ошибки `409` с информативным объяснением.
+
+##### GET /user/:id
+
+Возвращает пользователя с указанным в параметрах `id`. Если не существует - `404`.
+
+##### POST /session
+
+Возвращает токен доступа пользователя с указанным в параметрах `id` в случае успешной идентификации и аутентификации. Для идентификации в теле запроса ожидается поле `login`, для аутентификации `password`. В случае, когда либо не найдено зарегистрированного с таким `login` пользователя, либо некорректный `password`, возвращается `401`.
+
+### TODO
+
+- scheduler service
+- jobs aggregator service
+- email sender service
