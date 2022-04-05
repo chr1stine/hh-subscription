@@ -1,24 +1,26 @@
 version: "2"
 services:
-  api:
+  subscription:
     build:
-      context: ./api
-      target: development
+      context: ./subscription
+      target: production
     volumes:
-      - ./api:/app
+      - ./subscription:/app
       - /app/node_modules
     ports:
       - 5000:5000
     working_dir: /app
     stdin_open: true
     tty: true
-    profiles:
-      - full
+    depends_on:
+      - subscription_db
+    networks:
+      - subscriptions
 
   client:
     build:
       context: ./client
-      target: development
+      target: production
     volumes:
       - ./client:/app
       - /app/node_modules
@@ -28,13 +30,11 @@ services:
     working_dir: /app
     stdin_open: true
     tty: true
-    profiles:
-      - full
 
   auth:
     build:
       context: ./auth
-      target: development
+      target: production
     volumes:
       - ./auth:/app
       - /app/node_modules
@@ -43,8 +43,10 @@ services:
     working_dir: /app
     stdin_open: true
     tty: true
-    # depends_on:
-    #   - db
+    depends_on:
+      - users_db
+    networks:
+      - users
 
   subscription_db:
     image: mysql
@@ -71,7 +73,11 @@ services:
       - MYSQL_DATABASE=users
       - MYSQL_USER=chris
       - MYSQL_PASSWORD=chrspasswd
-    profiles:
-      - with_db
-    # stdin_open: true
-    # tty: true
+    networks:
+      - users
+    stdin_open: true
+    tty: true
+
+networks:
+  users:
+  subscriptions:
