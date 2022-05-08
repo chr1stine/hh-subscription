@@ -41,7 +41,7 @@ function DashboardPage() {
       }
     }
     f();
-  }, []);
+  }, [state.access_token]);
 
   return subscription ? (
     <div className="container">
